@@ -1,0 +1,2 @@
+//Install Apache, mySQL and PHP
+sudo apt update && sudo apt install lamp-server^
