@@ -1,0 +1,23 @@
+//Login to Azure
+Login-AzureRmAccount
+
+//Get subscription
+Get-AzureRmSubscription
+
+//Select Azure subscription
+Select-AzureRmSubscription -SubscriptionId ".."
+
+//creating a new resource group
+New-AzureRmResourceGroup -Name ARMPolicyRG -Location "South Central US"
+
+//Create a new policy definition
+New-AzureRmPolicyDefiniton -Name ServiceCatalogPolicy -Description "Policy to allow only certain resource types" -Policy "Location"
+
+//ResourceGroup variable
+$ResourceGroup = Get-AzureRmResourceGroup -Name "ARMPolicyRG"
+
+//policy variable
+$Policy = Get-AzureRmPolicyDefiniton -Name "ServiceCatalogPolicy"
+
+//Assign the new policy for the ResourceGroup
+New-AzureRmPolicyAssignment -Name "ServiceCatalogPolicyAssignment" -PolicyDefinition $Policy -Scope $ResourceGroup.ResourceId
