@@ -1,0 +1,32 @@
+//Add code to the runbook
+workflow ossazure
+{
+  Write-Output "Hello USA!"
+}
+
+//Add authentication to access the azure resources
+workflow ossazure
+{
+    $Conn = Get-AutomationConnection -Name AzureRunasConnection
+    Add-AzureRmAccount -ServicePrincipal -Tenant $Conn.TenantID `
+    -ApplicationId $Conn.ApplicationId -CertificateThumbprint $Conn.CertificateThumbprint
+}
+
+//Start a virtual machine
+workflow ossazure
+{
+    $Conn = Get-AutomationConnection -Name AzureRunasConnection
+    Add-AzureRmAccount -ServicePrincipal -Tenant $Conn.TenantID -ApplicationId $Conn.ApplicationId -CertificateThumbprint
+    Start-AzureRmVM -Name 'vmname' -ResourceGroupName 'ResourceGroupName'
+}
+
+//Adding input parameters
+workflow ossazure
+{
+    Param(
+    [string]$VMName,
+    [string]$ResourceGroupName
+    )
+    Add-AzureRmAccount -ServicePrincipal -Tenant $Conn.TenantID -ApplicationId $Conn.ApplicationId -CertificateThumbprint
+    Start-AzureRmVM -Name $VMName -ResourceGroupName $ResourceGroupName
+}
